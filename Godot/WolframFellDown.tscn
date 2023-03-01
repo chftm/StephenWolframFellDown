@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://wolfram.jpg" type="Texture" id=1]
+[ext_resource path="res://Stephen.gd" type="Script" id=2]
+[ext_resource path="res://comicsans.tres" type="DynamicFont" id=3]
+[ext_resource path="res://FellText.gd" type="Script" id=4]
+[ext_resource path="res://Button.gd" type="Script" id=5]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Stephen" type="Sprite" parent="."]
+position = Vector2( 936.219, 469.437 )
+scale = Vector2( 0.255311, 0.255311 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 719.0
+margin_top = 816.0
+margin_right = 1133.0
+margin_bottom = 997.0
+custom_fonts/font = ExtResource( 3 )
+text = "УРОНИТЬ"
+script = ExtResource( 5 )
+
+[node name="FellText" type="Label" parent="."]
+visible = false
+margin_left = 589.0
+margin_top = 61.0
+margin_right = 1250.0
+margin_bottom = 132.0
+custom_fonts/font = ExtResource( 3 )
+text = "СТИВЕН ВОЛЬФРАМ УПАЛ"
+script = ExtResource( 4 )
+
+[connection signal="pressed" from="Button" to="Stephen" method="_on_Button_pressed"]
+[connection signal="pressed" from="Button" to="FellText" method="_on_Button_pressed"]
