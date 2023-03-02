@@ -1,0 +1,9 @@
+name: StephenWolframFellDown
+version: '${project.version}'
+main: com.foxfil.stephenwolframfelldown.Main
+api-version: 1.19
+authors: [ FoxFil ]
+description: A plugin to make Stephen Wolfram fell down.
+commands:
+  summonstephen:
+    description: Summon Stephen Wolfram!
