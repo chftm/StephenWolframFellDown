@@ -32,6 +32,11 @@ import java.util.UUID;
 
 public class StephenWolframEvents implements Listener {
 
+    public Main main;
+    public StephenWolframEvents(Main main) {
+        this.main = main;
+    }
+
     @EventHandler
     public boolean onEntityInteract (PlayerInteractAtEntityEvent e) {
         if (e.getRightClicked().getType().equals(EntityType.ARMOR_STAND)) {
@@ -70,7 +75,11 @@ public class StephenWolframEvents implements Listener {
                         field.setAccessible(true);
                         field.set(headMeta, profile);
                     } catch (NoSuchFieldException | IllegalAccessException error) {
-                        player.sendMessage(ChatColor.RED + "[!] Something went wrong!");
+                        if (main.getConfig().getString("language").equals("english")) {
+                            player.sendMessage(ChatColor.RED + "[!] Something went wrong!");
+                        } else {
+                            player.sendMessage(ChatColor.RED + "[!] Что-то пошло не так!");
+                        }
                         error.printStackTrace();
                         return false;
                     }
@@ -123,7 +132,11 @@ public class StephenWolframEvents implements Listener {
                     base.setLeftLegPose(new EulerAngle(Math.toRadians(90), 0, 0));
 
                     rotatesStand.remove();
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§b§lStephen Wolfram fell down!"));
+                    if (main.getConfig().getString("language").equals("english")) {
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§b§lStephen Wolfram fell down!"));
+                    } else {
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§b§lСтивен Вольфрам упал!"));
+                    }
 
                 } else if (e.getRightClicked().getCustomName().equals("StephenThatFellDown")) {
                     // Removing Stephen that fell
@@ -168,7 +181,11 @@ public class StephenWolframEvents implements Listener {
                         field.setAccessible(true);
                         field.set(headMeta, profile);
                     } catch (NoSuchFieldException | IllegalAccessException error) {
-                        e.getPlayer().sendMessage(ChatColor.RED + "[!] Something went wrong!");
+                        if (main.getConfig().getString("language").equals("english")) {
+                            e.getPlayer().sendMessage(ChatColor.RED + "[!] Something went wrong!");
+                        } else {
+                            e.getPlayer().sendMessage(ChatColor.RED + "[!] Что-то пошло не так!");
+                        }
                         error.printStackTrace();
                         return false;
                     }
@@ -228,7 +245,11 @@ public class StephenWolframEvents implements Listener {
                     firework.setCustomName("StephenFirework");
                     firework.detonate();
 
-                    e.getDamager().sendMessage(ChatColor.GRAY + "Stephen Wolfram was removed.");
+                    if (main.getConfig().getString("language").equals("english")) {
+                        e.getDamager().sendMessage(ChatColor.GRAY + "Stephen Wolfram was removed.");
+                    } else {
+                        e.getDamager().sendMessage(ChatColor.GRAY + "Стивен Вольфрам был удалён.");
+                    }
                     ((Player) e.getDamager()).playSound(armr_stnd.getLocation(), Sound.ENTITY_VILLAGER_HURT, 1.0F, 1.0F);
                 } else if (e.getEntity().getCustomName().equals("StephenThatFellDown")) {
                     e.setCancelled(true);
@@ -253,7 +274,11 @@ public class StephenWolframEvents implements Listener {
                     firework.setCustomName("StephenFirework");
                     firework.detonate();
 
-                    e.getDamager().sendMessage(ChatColor.GRAY + "Stephen Wolfram was removed.");
+                    if (main.getConfig().getString("language").equals("english")) {
+                        e.getDamager().sendMessage(ChatColor.GRAY + "Stephen Wolfram was removed.");
+                    } else {
+                        e.getDamager().sendMessage(ChatColor.GRAY + "Стивен Вольфрам был удалён.");
+                    }
                 }
             }
         }

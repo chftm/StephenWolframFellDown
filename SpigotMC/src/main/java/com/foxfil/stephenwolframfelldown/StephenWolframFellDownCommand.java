@@ -2,7 +2,11 @@ package com.foxfil.stephenwolframfelldown;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,6 +24,11 @@ import java.lang.reflect.Field;
 import java.util.UUID;
 
 public class StephenWolframFellDownCommand implements CommandExecutor {
+
+    public Main main;
+    public StephenWolframFellDownCommand(Main main) {
+        this.main = main;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -57,7 +66,11 @@ public class StephenWolframFellDownCommand implements CommandExecutor {
                     field.setAccessible(true);
                     field.set(headMeta, profile);
                 } catch (NoSuchFieldException | IllegalAccessException error) {
-                    player.sendMessage(ChatColor.RED + "[!] Something went wrong!");
+                    if (main.getConfig().getString("language").equals("english")) {
+                        player.sendMessage(ChatColor.RED + "[!] Something went wrong!");
+                    } else {
+                        player.sendMessage(ChatColor.RED + "[!] Что-то пошло не так!");
+                    }
                     error.printStackTrace();
                     return false;
                 }
@@ -92,12 +105,20 @@ public class StephenWolframFellDownCommand implements CommandExecutor {
                 firework.setCustomName("StephenFirework");
                 firework.detonate();
 
-                player.sendMessage(ChatColor.GREEN + "Stephen Wolfram was successfully summoned!");
+                if (main.getConfig().getString("language").equals("english")) {
+                    player.sendMessage(ChatColor.GREEN + "Stephen Wolfram was successfully summoned!");
+                } else {
+                    player.sendMessage(ChatColor.GREEN + "Стивен Вольфрам был успешно призван!");
+                }
                 player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_CELEBRATE, 1.0F, 1.0F);
 
 
             } else {
-                player.sendMessage(ChatColor.RED + "[!] You don't have permission to use this command!");
+                if (main.getConfig().getString("language").equals("english")) {
+                    player.sendMessage(ChatColor.RED + "[!] You don't have permission to use this command!");
+                } else {
+                    player.sendMessage(ChatColor.RED + "[!] У вас нет разрешения на использование этой команды!");
+                }
             }
         }
 

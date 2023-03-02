@@ -8,8 +8,12 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         System.out.println("StephenWolframFellDown was activated!");
-        getCommand("summonstephen").setExecutor(new StephenWolframFellDownCommand());
-        Bukkit.getPluginManager().registerEvents(new StephenWolframEvents(), this);
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
+        getCommand("setlanguage").setExecutor(new LanguageCommand(this));
+        getCommand("setlanguage").setTabCompleter(new LanguageTab());
+        getCommand("summonstephen").setExecutor(new StephenWolframFellDownCommand(this));
+        Bukkit.getPluginManager().registerEvents(new StephenWolframEvents(this), this);
     }
 
     @Override

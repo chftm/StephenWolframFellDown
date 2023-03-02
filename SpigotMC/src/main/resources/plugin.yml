@@ -7,3 +7,5 @@ description: A plugin to make Stephen Wolfram fell down.
 commands:
   summonstephen:
     description: Summon Stephen Wolfram!
+  setlanguage:
+    description: Set your plugin language!
