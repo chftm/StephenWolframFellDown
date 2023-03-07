@@ -95,7 +95,7 @@ public class StephenWolframEvents implements Listener {
                     top.setSmall(false);
                     top.setVisible(false);
                     top.setArms(true);
-                    top.setCustomName("StephenThatFellDown");
+                    top.setCustomName("StephenThatFellDownUpper");
                     top.addEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING_OR_CHANGING);
                     top.addEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING_OR_CHANGING);
                     top.addEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.ADDING_OR_CHANGING);
@@ -112,7 +112,7 @@ public class StephenWolframEvents implements Listener {
                     base.setCanPickupItems(false);
                     base.setVisible(false);
                     base.setArms(false);
-                    base.setCustomName("StephenThatFellDown");
+                    base.setCustomName("StephenThatFellDownLower");
                     base.addEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING_OR_CHANGING);
                     base.addEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING_OR_CHANGING);
                     base.getEquipment().setBoots(boots);
@@ -121,6 +121,9 @@ public class StephenWolframEvents implements Listener {
                     base.getEquipment().setLeggings(leggins);
                     base.addEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.REMOVING_OR_CHANGING);
                     base.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.ADDING_OR_CHANGING);
+
+                    // Sound
+                    player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.2F, 1.0F);
 
                     // Set poses to make the two armor stands look like one horizontal armor stand
                     top.setHeadPose(new EulerAngle(Math.toRadians(90), 0, 0));
@@ -138,12 +141,12 @@ public class StephenWolframEvents implements Listener {
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§b§lСтивен Вольфрам упал!"));
                     }
 
-                } else if (e.getRightClicked().getCustomName().equals("StephenThatFellDown")) {
+                } else if (e.getRightClicked().getCustomName().equals("StephenThatFellDownUpper") || e.getRightClicked().getCustomName().equals("StephenThatFellDownLower")) {
                     // Removing Stephen that fell
                     ArmorStand armor_stnd = (ArmorStand) e.getRightClicked();
                     for (Entity mob : armor_stnd.getNearbyEntities(0.5, 0.5, 0.5)) {
                         if (mob.getCustomName() != null) {
-                            if (mob.getCustomName().equals("StephenThatFellDown")) {
+                            if (mob.getCustomName().equals("StephenThatFellDownUpper") || mob.getCustomName().equals("StephenThatFellDownLower")) {
                                 mob.remove();
                             }
                         }
@@ -193,23 +196,47 @@ public class StephenWolframEvents implements Listener {
 
 
                     // Creating an armor stand
-                    ArmorStand stand = (ArmorStand) e.getPlayer().getWorld().spawnEntity(locSpawn.add(0, 1.3, 0), EntityType.ARMOR_STAND);
-                    stand.setBasePlate(false);
-                    stand.setArms(true);
-                    stand.addEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING_OR_CHANGING);
-                    stand.addEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING_OR_CHANGING);
-                    stand.getEquipment().setBoots(boots);
-                    stand.addEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.REMOVING_OR_CHANGING);
-                    stand.getEquipment().setChestplate(chestplate);
-                    stand.addEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.REMOVING_OR_CHANGING);
-                    stand.getEquipment().setLeggings(leggins);
-                    stand.addEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.REMOVING_OR_CHANGING);
-                    stand.getEquipment().setHelmet(head);
-                    stand.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING);
-                    stand.setCustomName("Stephen");
-                    stand.setCanPickupItems(false);
-                    stand.setGravity(false);
-                    stand.setRotation(90, 0);
+                    if (e.getRightClicked().getCustomName().equals("StephenThatFellDownUpper")) {
+                        ArmorStand stand = (ArmorStand) e.getPlayer().getWorld().spawnEntity(locSpawn.add(0, 1.3, 0), EntityType.ARMOR_STAND);
+                        stand.setBasePlate(false);
+                        stand.setArms(true);
+                        stand.addEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING_OR_CHANGING);
+                        stand.addEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING_OR_CHANGING);
+                        stand.getEquipment().setBoots(boots);
+                        stand.addEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.REMOVING_OR_CHANGING);
+                        stand.getEquipment().setChestplate(chestplate);
+                        stand.addEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.REMOVING_OR_CHANGING);
+                        stand.getEquipment().setLeggings(leggins);
+                        stand.addEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.REMOVING_OR_CHANGING);
+                        stand.getEquipment().setHelmet(head);
+                        stand.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING);
+                        stand.setCustomName("Stephen");
+                        stand.setCanPickupItems(false);
+                        stand.setGravity(false);
+                        stand.setRotation(90, 0);
+
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_STONE_BREAK, 1.0F, 1.0F);
+                    } else {
+                        ArmorStand stand = (ArmorStand) e.getPlayer().getWorld().spawnEntity(locSpawn.add(-0.5, 0.67, 0), EntityType.ARMOR_STAND);
+                        stand.setBasePlate(false);
+                        stand.setArms(true);
+                        stand.addEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.ADDING_OR_CHANGING);
+                        stand.addEquipmentLock(EquipmentSlot.OFF_HAND, ArmorStand.LockType.ADDING_OR_CHANGING);
+                        stand.getEquipment().setBoots(boots);
+                        stand.addEquipmentLock(EquipmentSlot.FEET, ArmorStand.LockType.REMOVING_OR_CHANGING);
+                        stand.getEquipment().setChestplate(chestplate);
+                        stand.addEquipmentLock(EquipmentSlot.CHEST, ArmorStand.LockType.REMOVING_OR_CHANGING);
+                        stand.getEquipment().setLeggings(leggins);
+                        stand.addEquipmentLock(EquipmentSlot.LEGS, ArmorStand.LockType.REMOVING_OR_CHANGING);
+                        stand.getEquipment().setHelmet(head);
+                        stand.addEquipmentLock(EquipmentSlot.HEAD, ArmorStand.LockType.REMOVING_OR_CHANGING);
+                        stand.setCustomName("Stephen");
+                        stand.setCanPickupItems(false);
+                        stand.setGravity(false);
+                        stand.setRotation(90, 0);
+
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_STONE_BREAK, 1.0F, 1.0F);
+                    }
                 }
             }
         }
@@ -251,12 +278,12 @@ public class StephenWolframEvents implements Listener {
                         e.getDamager().sendMessage(ChatColor.GRAY + "Стивен Вольфрам был удалён.");
                     }
                     ((Player) e.getDamager()).playSound(armr_stnd.getLocation(), Sound.ENTITY_VILLAGER_HURT, 1.0F, 1.0F);
-                } else if (e.getEntity().getCustomName().equals("StephenThatFellDown")) {
+                } else if (e.getEntity().getCustomName().equals("StephenThatFellDownUpper") || e.getEntity().getCustomName().equals("StephenThatFellDownLower")) {
                     e.setCancelled(true);
                     ArmorStand armr_stnd = (ArmorStand) e.getEntity();
                     for (Entity mob : armr_stnd.getNearbyEntities(0.5, 0.5, 0.5)) {
                         if (mob.getCustomName() != null) {
-                            if (mob.getCustomName().equals("StephenThatFellDown")) {
+                            if (mob.getCustomName().equals("StephenThatFellDownUpper") || mob.getCustomName().equals("StephenThatFellDownLower")) {
                                 mob.remove();
                             }
                         }
@@ -288,7 +315,7 @@ public class StephenWolframEvents implements Listener {
     public void onEntityDamaged (EntityDamageEvent e) {
         if (e.getEntity() instanceof ArmorStand) {
             if (e.getEntity().getCustomName() != null) {
-                if (e.getEntity().getCustomName().equals("Stephen") | e.getEntity().getCustomName().equals("StephenThatFellDown")) {
+                if (e.getEntity().getCustomName().equals("Stephen") || e.getEntity().getCustomName().equals("StephenThatFellDownUpper") || e.getEntity().getCustomName().equals("StephenThatFellDownLower")) {
                     e.setCancelled(true);
                 }
             }
