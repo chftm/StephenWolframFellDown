@@ -1,4 +1,5 @@
 import discord
+from discord import app_commands
 from discord.ext import commands
 from discord import ui
 
@@ -7,14 +8,13 @@ TOKEN = ""
 # ⬆ paste your bot token above
 
 intents = discord.Intents.default()
-intents.message_content = True
-
-bot = commands.Bot(command_prefix='!', intents=intents)
+client = discord.Client(intents=intents)
+tree = app_commands.CommandTree(client)
 
 swfd_fallen = False
 
-@bot.command()
-async def swfd(ctx):
+@tree.command(name="swfd", description="Make Stephen Wolfram fall!")
+async def swfd(interaction):
     global swfd_fallen
     embed=discord.Embed(color=0xff9500)
     embed.add_field(name="", value="", inline=False)
@@ -22,7 +22,7 @@ async def swfd(ctx):
     button = ui.Button(label="Make Stephen fall!")
     view = ui.View()
     view.add_item(button)
-    await ctx.send(embed=embed, view=view)
+    await interaction.response.send_message(embed=embed, view=view)
     button.callback = on_interaction
 
 @commands.Cog.listener()
@@ -43,6 +43,6 @@ async def on_interaction(interaction):
     view.add_item(button_edit)
     await interaction.response.edit_message(embed=em, view=view)
     button_edit.callback = on_interaction
-    
 
-bot.run(TOKEN)
+
+client.run(TOKEN)
