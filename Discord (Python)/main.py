@@ -44,5 +44,8 @@ async def on_interaction(interaction):
     await interaction.response.edit_message(embed=em, view=view)
     button_edit.callback = on_interaction
 
+@client.event
+async def on_ready():
+    await tree.sync()
 
 client.run(TOKEN)
