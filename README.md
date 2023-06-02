@@ -1,3 +1,5 @@
+![Статус проекта: Вечнозелёный](https://raw.githubusercontent.com/chftm/brand/main/Project%20Status/evergreen.svg)
+
 # Стивен Вольфрам упал
 
 Профессиональный алгоритм "Стивен Вольфрам упал" применяется крупнейшими
