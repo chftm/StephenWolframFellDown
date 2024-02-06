@@ -27,6 +27,15 @@ LocalResource(
 	:style => fallen ? "transform: rotate(90deg);" : ""
 )
 
+# ╔═╡ eca54598-825f-4d31-838e-2ccb5589de3e
+html"""
+<style>
+pluto-editor {
+	background-image: url("https://gachax.com/anime/wp-content/uploads/sites/29/2023/06/cute-anime-girl-pfp-profile-pictures-chibi.png");
+}
+</style>
+"""
+
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
@@ -305,8 +314,9 @@ version = "17.4.0+2"
 """
 
 # ╔═╡ Cell order:
-# ╠═7ab04da0-54e3-41ee-980e-21d87261b5db
+# ╟─7ab04da0-54e3-41ee-980e-21d87261b5db
 # ╟─12233072-9aaa-4077-bcd4-53b4f0d03c25
 # ╟─893cc0d2-1136-47a2-b16e-24257547ac5f
+# ╟─eca54598-825f-4d31-838e-2ccb5589de3e
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
